@@ -1,0 +1,389 @@
+04:58:01 INFO  DRY-RUN mode: installing mock overrides...
+04:58:02 INFO  Mock overrides installed — all external calls are simulated
+
+[0;36m[1m══════ Environment Validation ══════[0m
+
+[0;36m[1m══════ Environment Validation ══════[0m
+04:58:02 INFO  Checking required pipeline variables...
+04:58:02 INFO  Checking required pipeline variables...
+04:58:02 [0;32mPASS[0m  $APP_NAME is set
+04:58:02 [0;32mPASS[0m  $APP_NAME is set
+04:58:02 [0;32mPASS[0m  $NAMESPACE is set
+04:58:02 [0;32mPASS[0m  $NAMESPACE is set
+04:58:02 [0;32mPASS[0m  $APP_VERSION is set
+04:58:02 [0;32mPASS[0m  $APP_VERSION is set
+04:58:02 [0;32mPASS[0m  $OCP_API_URL is set
+04:58:02 [0;32mPASS[0m  $OCP_API_URL is set
+04:58:02 [0;32mPASS[0m  $OCP_TOKEN is set
+04:58:02 [0;32mPASS[0m  $OCP_TOKEN is set
+04:58:02 [0;32mPASS[0m  Optional $APPD_CONTROLLER_URL is configured
+04:58:02 [0;32mPASS[0m  Optional $APPD_CONTROLLER_URL is configured
+04:58:02 [0;32mPASS[0m  Optional $APPD_API_KEY is configured
+04:58:02 [0;32mPASS[0m  Optional $APPD_API_KEY is configured
+04:58:02 [0;32mPASS[0m  Optional $ELASTICSEARCH_URL is configured
+04:58:02 [0;32mPASS[0m  Optional $ELASTICSEARCH_URL is configured
+04:58:02 [0;32mPASS[0m  Optional $ELK_AUTH is configured
+04:58:02 [0;32mPASS[0m  Optional $ELK_AUTH is configured
+04:58:02 INFO  Checking required tooling...
+04:58:02 INFO  Checking required tooling...
+04:58:02 [0;32mPASS[0m  Tool available: oc (health-reports/.mock-bin/oc)
+04:58:02 [0;32mPASS[0m  Tool available: oc (health-reports/.mock-bin/oc)
+04:58:02 [0;32mPASS[0m  Tool available: curl (health-reports/.mock-bin/curl)
+04:58:02 [0;32mPASS[0m  Tool available: curl (health-reports/.mock-bin/curl)
+04:58:02 [0;32mPASS[0m  Tool available: python3 (/usr/bin/python3)
+04:58:02 [0;32mPASS[0m  Tool available: python3 (/usr/bin/python3)
+04:58:02 [0;32mPASS[0m  Tool available: bc (/usr/bin/bc)
+04:58:02 [0;32mPASS[0m  Tool available: bc (/usr/bin/bc)
+04:58:02 [0;31mFAIL[0m  Required tool missing: jq
+04:58:02 [0;31mFAIL[0m  Required tool missing: jq
+04:58:02 INFO  Testing OpenShift login...
+04:58:02 INFO  Testing OpenShift login...
+Logged into mock cluster as mock-user
+Logged into mock cluster as mock-user
+04:58:02 [0;32mPASS[0m  Authenticated as: mock-user @ https://mock-ocp.example.com:6443
+04:58:02 [0;32mPASS[0m  Authenticated as: mock-user @ https://mock-ocp.example.com:6443
+04:58:02 [0;32mPASS[0m  Namespace 'my-namespace' exists
+04:58:02 [0;32mPASS[0m  Namespace 'my-namespace' exists
+
+[0;36m[1m══════ OpenShift Rollout Checks ══════[0m
+
+[0;36m[1m══════ OpenShift Rollout Checks ══════[0m
+Logged into mock cluster as mock-user
+Logged into mock cluster as mock-user
+04:58:03 INFO  Waiting 0s for application to stabilise post-deploy...
+04:58:03 INFO  Waiting 0s for application to stabilise post-deploy...
+04:58:03 INFO  Checking rollout status for deployment/my-app in my-namespace...
+04:58:03 INFO  Checking rollout status for deployment/my-app in my-namespace...
+deployment "my-app" successfully rolled out
+deployment "my-app" successfully rolled out
+04:58:03 [0;32mPASS[0m  Rollout completed successfully within 60s
+04:58:03 [0;32mPASS[0m  Rollout completed successfully within 60s
+04:58:03 INFO  Validating deployed image contains version tag: 1.2.3
+04:58:03 INFO  Validating deployed image contains version tag: 1.2.3
+04:58:03 [0;32mPASS[0m  Correct version deployed: registry.example.com/my-app:1.2.3
+04:58:03 [0;32mPASS[0m  Correct version deployed: registry.example.com/my-app:1.2.3
+04:58:03 INFO  Current rollout revision: 1
+04:58:03 INFO  Current rollout revision: 1
+04:58:03 INFO  Rollout validation complete
+04:58:03 INFO  Rollout validation complete
+
+[0;36m[1m══════ OpenShift Pod Health Checks ══════[0m
+
+[0;36m[1m══════ OpenShift Pod Health Checks ══════[0m
+Logged into mock cluster as mock-user
+Logged into mock cluster as mock-user
+04:58:03 INFO  Checking pod readiness for app=my-app in my-namespace...
+04:58:03 INFO  Checking pod readiness for app=my-app in my-namespace...
+04:58:03 INFO  Desired: 3 | Ready: 3 | Available: 3
+04:58:03 INFO  Desired: 3 | Ready: 3 | Available: 3
+04:58:04 [0;32mPASS[0m  Pod readiness: 3/3 (100%) — meets 100% threshold
+04:58:04 [0;32mPASS[0m  Pod readiness: 3/3 (100%) — meets 100% threshold
+04:58:04 INFO  Scanning for crash/error pod states...
+04:58:04 INFO  Scanning for crash/error pod states...
+04:58:04 INFO  Checking restart counts...
+04:58:04 INFO  Checking restart counts...
+04:58:04 [0;32mPASS[0m  Restart counts within acceptable range
+04:58:04 [0;32mPASS[0m  Restart counts within acceptable range
+04:58:04 INFO  Checking pod conditions (PodScheduled, Initialized, ContainersReady, Ready)...
+04:58:04 INFO  Checking pod conditions (PodScheduled, Initialized, ContainersReady, Ready)...
+04:58:04 [0;32mPASS[0m  Pod my-app-abc-1 — all conditions satisfied
+04:58:04 [0;32mPASS[0m  Pod my-app-abc-1 — all conditions satisfied
+04:58:04 [0;32mPASS[0m  Pod my-app-abc-2 — all conditions satisfied
+04:58:04 [0;32mPASS[0m  Pod my-app-abc-2 — all conditions satisfied
+04:58:04 [0;32mPASS[0m  Pod my-app-abc-3 — all conditions satisfied
+04:58:04 [0;32mPASS[0m  Pod my-app-abc-3 — all conditions satisfied
+04:58:04 INFO  Fetching recent warning events for my-namespace...
+04:58:04 INFO  Fetching recent warning events for my-namespace...
+04:58:04 [0;32mPASS[0m  No warning events for my-app
+04:58:04 [0;32mPASS[0m  No warning events for my-app
+04:58:04 INFO  Pod list saved to health-reports/pod-list.txt
+04:58:04 INFO  Pod list saved to health-reports/pod-list.txt
+04:58:05 INFO  Pod health checks complete
+04:58:05 INFO  Pod health checks complete
+
+[0;36m[1m══════ OpenShift Resources & Route Checks ══════[0m
+
+[0;36m[1m══════ OpenShift Resources & Route Checks ══════[0m
+Logged into mock cluster as mock-user
+Logged into mock cluster as mock-user
+04:58:05 INFO  Collecting resource utilisation metrics...
+04:58:05 INFO  Collecting resource utilisation metrics...
+NAME          CPU(cores)  MEMORY(bytes)
+my-app-abc-1  150m        210Mi
+my-app-abc-2  180m        225Mi
+NAME          CPU(cores)  MEMORY(bytes)
+my-app-abc-1  150m        210Mi
+my-app-abc-2  180m        225Mi
+04:58:05 [0;32mPASS[0m  Resource metrics: CPU=330m  MEM=435Mi
+04:58:05 [0;32mPASS[0m  Resource metrics: CPU=330m  MEM=435Mi
+04:58:05 INFO  Checking resource limits are defined...
+04:58:05 INFO  Checking resource limits are defined...
+04:58:05 [0;32mPASS[0m  Resource limits are configured on deployment
+04:58:05 [0;32mPASS[0m  Resource limits are configured on deployment
+04:58:05 INFO  Checking routes for my-app...
+04:58:05 INFO  Checking routes for my-app...
+04:58:05 INFO  Route found: https://my-app.apps.mock-ocp.example.com
+04:58:05 INFO  Route found: https://my-app.apps.mock-ocp.example.com
+04:58:05 INFO    /health → HTTP 200
+04:58:05 INFO    /health → HTTP 200
+04:58:05 [0;32mPASS[0m  Health endpoint /health returned HTTP 200
+04:58:05 [0;32mPASS[0m  Health endpoint /health returned HTTP 200
+04:58:05 INFO  Checking service endpoint availability...
+04:58:05 INFO  Checking service endpoint availability...
+04:58:05 [0;32mPASS[0m  Service has 1 endpoint(s) registered: {"subsets":[{"addresses":[{"ip":"10.0.0.1"},{"ip":"10.0.0.2"},{"ip":"10.0.0.3"}]}]}
+04:58:05 [0;32mPASS[0m  Service has 1 endpoint(s) registered: {"subsets":[{"addresses":[{"ip":"10.0.0.1"},{"ip":"10.0.0.2"},{"ip":"10.0.0.3"}]}]}
+04:58:05 INFO  Checking HorizontalPodAutoscaler...
+04:58:05 INFO  Checking HorizontalPodAutoscaler...
+04:58:05 [0;32mPASS[0m  HPA status: 3/10 (CPU: 42%)
+04:58:05 [0;32mPASS[0m  HPA status: 3/10 (CPU: 42%)
+04:58:06 INFO  Resources and route checks complete
+04:58:06 INFO  Resources and route checks complete
+
+[0;36m[1m══════ HTTP Request Categorization (via oc exec) ══════[0m
+
+[0;36m[1m══════ HTTP Request Categorization (via oc exec) ══════[0m
+Logged into mock cluster as mock-user
+Logged into mock cluster as mock-user
+04:58:06 INFO  Analysing HTTP logs in pod: my-app-abc-1
+04:58:06 INFO  Analysing HTTP logs in pod: my-app-abc-1
+04:58:06 INFO    No access log file found — falling back to stdout capture (last 500 lines)
+04:58:06 INFO    No access log file found — falling back to stdout capture (last 500 lines)
+04:58:09 INFO    Lines collected: 221
+04:58:09 INFO    Lines collected: 221
+04:58:09 INFO    Saved: health-reports/http-my-app-abc-1.json
+04:58:09 INFO    Saved: health-reports/http-my-app-abc-1.json
+04:58:09 INFO    Total requests parsed: 221
+04:58:09 INFO    Total requests parsed: 221
+04:58:09 INFO    5xx rate: 3.17%  |  Slow (>3000ms): 0.0%
+04:58:09 INFO    5xx rate: 3.17%  |  Slow (>3000ms): 0.0%
+04:58:09 INFO    Top 5xx paths:
+04:58:09 INFO    Top 5xx paths:
+    /api/resource/4 1
+    /api/resource/27 1
+    /api/resource/30 1
+    /api/resource/45 1
+    /api/resource/99 1
+    /api/resource/4 1
+    /api/resource/27 1
+    /api/resource/30 1
+    /api/resource/45 1
+    /api/resource/99 1
+04:58:09 [0;32mPASS[0m  Pod my-app-abc-1 — 5xx rate 3.17% within threshold 5%
+04:58:09 [0;32mPASS[0m  Pod my-app-abc-1 — 5xx rate 3.17% within threshold 5%
+04:58:09 [0;32mPASS[0m  Pod my-app-abc-1 — slow request rate 0.0% is acceptable
+04:58:09 [0;32mPASS[0m  Pod my-app-abc-1 — slow request rate 0.0% is acceptable
+
+  ┌─────────────────────────────────────────────────────┐
+  │  HTTP Request Summary — my-app-abc-1
+  ├────────────────┬────────────────────────────────────┤
+  │ Total Requests │ 221                                │
+  │ 2xx Success    │ 214                                │
+  │ 3xx Redirect   │ 0                                  │
+  │ 4xx Client Err │ 0                                  │
+  │ 5xx Server Err │ 7 (3.17%)                          │
+  │ Slow Requests  │ 0.0% over 3000ms                     │
+  │ Method GET     │ 201                                │
+  │ Method POST    │ 20                                 │
+  └────────────────┴────────────────────────────────────┘
+04:58:09 INFO  Analysing HTTP logs in pod: my-app-abc-2
+04:58:09 INFO  Analysing HTTP logs in pod: my-app-abc-2
+04:58:10 INFO    No access log file found — falling back to stdout capture (last 500 lines)
+04:58:10 INFO    No access log file found — falling back to stdout capture (last 500 lines)
+04:58:12 INFO    Lines collected: 221
+04:58:12 INFO    Lines collected: 221
+04:58:13 INFO    Saved: health-reports/http-my-app-abc-2.json
+04:58:13 INFO    Saved: health-reports/http-my-app-abc-2.json
+04:58:13 INFO    Total requests parsed: 221
+04:58:13 INFO    Total requests parsed: 221
+04:58:13 INFO    5xx rate: 7.69%  |  Slow (>3000ms): 0.0%
+04:58:13 INFO    5xx rate: 7.69%  |  Slow (>3000ms): 0.0%
+04:58:13 INFO    Top 5xx paths:
+04:58:13 INFO    Top 5xx paths:
+    /api/resource/10 1
+    /api/resource/16 1
+    /api/resource/53 1
+    /api/resource/61 1
+    /api/resource/10 1
+    /api/resource/16 1
+    /api/resource/53 1
+    /api/resource/61 1
+    /api/resource/67 1
+    /api/resource/67 1
+04:58:13 [0;31mFAIL[0m  Pod my-app-abc-2 — 5xx rate 7.69% exceeds threshold 5%
+04:58:13 [0;31mFAIL[0m  Pod my-app-abc-2 — 5xx rate 7.69% exceeds threshold 5%
+04:58:13 [0;32mPASS[0m  Pod my-app-abc-2 — slow request rate 0.0% is acceptable
+04:58:13 [0;32mPASS[0m  Pod my-app-abc-2 — slow request rate 0.0% is acceptable
+
+  ┌─────────────────────────────────────────────────────┐
+  │  HTTP Request Summary — my-app-abc-2
+  ├────────────────┬────────────────────────────────────┤
+  │ Total Requests │ 221                                │
+  │ 2xx Success    │ 204                                │
+  │ 3xx Redirect   │ 0                                  │
+  │ 4xx Client Err │ 0                                  │
+  │ 5xx Server Err │ 17 (7.69%)                          │
+  │ Slow Requests  │ 0.0% over 3000ms                     │
+  │ Method GET     │ 201                                │
+  │ Method POST    │ 20                                 │
+  └────────────────┴────────────────────────────────────┘
+04:58:13 INFO  Analysing HTTP logs in pod: my-app-abc-3
+04:58:13 INFO  Analysing HTTP logs in pod: my-app-abc-3
+04:58:13 INFO    No access log file found — falling back to stdout capture (last 500 lines)
+04:58:13 INFO    No access log file found — falling back to stdout capture (last 500 lines)
+04:58:16 INFO    Lines collected: 221
+04:58:16 INFO    Lines collected: 221
+04:58:16 INFO    Saved: health-reports/http-my-app-abc-3.json
+04:58:16 INFO    Saved: health-reports/http-my-app-abc-3.json
+04:58:17 INFO    Total requests parsed: 221
+04:58:17 INFO    Total requests parsed: 221
+04:58:17 INFO    5xx rate: 4.52%  |  Slow (>3000ms): 0.0%
+04:58:17 INFO    5xx rate: 4.52%  |  Slow (>3000ms): 0.0%
+04:58:17 INFO    Top 5xx paths:
+    /api/resource/60 1
+    /api/resource/90 1
+    /api/resource/91 1
+    /api/resource/100 1
+04:58:17 INFO    Top 5xx paths:
+    /api/resource/117 1
+    /api/resource/60 1
+    /api/resource/90 1
+    /api/resource/91 1
+    /api/resource/100 1
+    /api/resource/117 1
+04:58:17 [0;32mPASS[0m  Pod my-app-abc-3 — 5xx rate 4.52% within threshold 5%
+04:58:17 [0;32mPASS[0m  Pod my-app-abc-3 — 5xx rate 4.52% within threshold 5%
+04:58:17 [0;32mPASS[0m  Pod my-app-abc-3 — slow request rate 0.0% is acceptable
+04:58:17 [0;32mPASS[0m  Pod my-app-abc-3 — slow request rate 0.0% is acceptable
+
+  ┌─────────────────────────────────────────────────────┐
+  │  HTTP Request Summary — my-app-abc-3
+  ├────────────────┬────────────────────────────────────┤
+  │ Total Requests │ 221                                │
+  │ 2xx Success    │ 211                                │
+  │ 3xx Redirect   │ 0                                  │
+  │ 4xx Client Err │ 0                                  │
+  │ 5xx Server Err │ 10 (4.52%)                          │
+  │ Slow Requests  │ 0.0% over 3000ms                     │
+  │ Method GET     │ 201                                │
+  │ Method POST    │ 20                                 │
+  └────────────────┴────────────────────────────────────┘
+04:58:17 INFO  Aggregating HTTP categorization across all pods...
+04:58:17 INFO  Aggregating HTTP categorization across all pods...
+04:58:17 INFO  Aggregate HTTP report saved: health-reports/http-aggregate.json
+04:58:17 INFO  Aggregate HTTP report saved: health-reports/http-aggregate.json
+{
+  "pods_analysed": 3,
+  "total_requests": 663,
+  "pct_5xx": 5.13,
+  "pct_4xx": 0.0,
+  "pct_2xx": 94.87,
+  "pct_slow": 0.0
+}
+{
+  "pods_analysed": 3,
+  "total_requests": 663,
+  "pct_5xx": 5.13,
+  "pct_4xx": 0.0,
+  "pct_2xx": 94.87,
+  "pct_slow": 0.0
+}
+
+[0;36m[1m══════ AppDynamics Performance Checks ══════[0m
+
+[0;36m[1m══════ AppDynamics Performance Checks ══════[0m
+04:58:17 INFO  Fetching calls per minute...
+04:58:17 INFO  Fetching calls per minute...
+04:58:18 [0;32mPASS[0m  Application receiving traffic: 120 calls/min
+04:58:18 [0;32mPASS[0m  Application receiving traffic: 120 calls/min
+04:58:18 INFO  Fetching error rate...
+04:58:18 INFO  Fetching error rate...
+04:58:18 [0;32mPASS[0m  Error rate: 1.67% (threshold: 5%)
+04:58:18 [0;32mPASS[0m  Error rate: 1.67% (threshold: 5%)
+04:58:18 INFO  Fetching average response time...
+04:58:18 INFO  Fetching average response time...
+04:58:18 [0;32mPASS[0m  Avg response time: 340ms (threshold: 2000ms)
+04:58:18 [0;32mPASS[0m  Avg response time: 340ms (threshold: 2000ms)
+04:58:18 INFO  Fetching 95th percentile response time...
+04:58:18 INFO  Fetching 95th percentile response time...
+04:58:18 [0;32mPASS[0m  P95 response time: 850ms (threshold: 6000ms)
+04:58:18 [0;32mPASS[0m  P95 response time: 850ms (threshold: 6000ms)
+04:58:18 INFO  Checking health rule violations...
+04:58:18 INFO  Checking health rule violations...
+04:58:18 [0;32mPASS[0m  No AppDynamics health rule violations
+04:58:18 [0;32mPASS[0m  No AppDynamics health rule violations
+04:58:19 INFO  Fetching top business transaction health...
+04:58:19 INFO  Fetching top business transaction health...
+  Business transactions registered: 2  Business transactions registered: 2
+  - /api/resource                            calls/min: 80
+
+  - /api/resource                            calls/min: 80
+  - /api/data                                calls/min: 40
+  - /api/data                                calls/min: 40
+04:58:19 INFO  AppDynamics checks complete
+04:58:19 INFO  AppDynamics checks complete
+
+[0;36m[1m══════ ELK Stack Log Analysis ══════[0m
+
+[0;36m[1m══════ ELK Stack Log Analysis ══════[0m
+04:58:19 INFO  Counting ERROR/FATAL log entries (last 15 min)...
+04:58:19 INFO  Counting ERROR/FATAL log entries (last 15 min)...
+04:58:19 [0;32mPASS[0m  Error log count: 3 (threshold: 10)
+04:58:19 [0;32mPASS[0m  Error log count: 3 (threshold: 10)
+04:58:19 INFO  Scanning for Java/Python/Node exceptions and stack traces...
+04:58:19 INFO  Scanning for Java/Python/Node exceptions and stack traces...
+04:58:20 [0;31mFAIL[0m  3 exception(s) detected
+04:58:20 [0;31mFAIL[0m  3 exception(s) detected
+  POD: mock-pod | mock error  POD: mock-pod | mock error
+
+04:58:20 INFO  Checking log volume for spikes...
+04:58:20 INFO  Checking log volume for spikes...
+04:58:20 [0;32mPASS[0m  Log volume normal — current/baseline ratio: 1.0x (baseline: 3, current: 3)
+04:58:20 [0;32mPASS[0m  Log volume normal — current/baseline ratio: 1.0x (baseline: 3, current: 3)
+04:58:20 INFO  Searching for timeout and slow query patterns...
+04:58:20 INFO  Searching for timeout and slow query patterns...
+04:58:20 [1;33mWARN[0m  Minor timeout occurrences: 3 (investigate if rising)
+04:58:20 [1;33mWARN[0m  Minor timeout occurrences: 3 (investigate if rising)
+04:58:20 INFO  Correlating HTTP 5xx patterns in application logs...
+04:58:20 INFO  Correlating HTTP 5xx patterns in application logs...
+04:58:20 [0;32mPASS[0m  HTTP 5xx log entries: 3 — acceptable
+04:58:20 [0;32mPASS[0m  HTTP 5xx log entries: 3 — acceptable
+
+[0;36m[1m══════ Final Health Gate & Report ══════[0m
+
+[0;36m[1m══════ Final Health Gate & Report ══════[0m
+
+╔══════════════════════════════════════════════════════════╗
+║         POST-DEPLOYMENT HEALTH VALIDATION REPORT         ║
+╠══════════════════════════════════════════════════════════╣
+║  Application:         my-app                              ║
+║  Version:             1.2.3                               ║
+║  Namespace:           my-namespace                        ║
+║  Image:               registry.example.com/my-app:1.2.3   ║
+║  Route:               my-app.apps.mock-ocp.example.com    ║
+║  Pods:                3/3 ready                           ║
+║  Timestamp:           2026-04-19T04:58:21Z                ║
+╠══════════════════════════════════════════════════════════╣
+║  Checks Passed:       41 / 44                             ║
+║  Checks Failed:       3                                   ║
+║  Warnings:            1                                   ║
+║  Health Score:        93.2%                               ║
+║  AppD Error Rate:     1.67%                               ║
+║  AppD Avg RT:         340ms                               ║
+║  ELK Errors:          3                                   ║
+╠══════════════════════════════════════════════════════════╣
+║  ✘  OVERALL STATUS: FAIL — DO NOT MARK SUCCESS        ║
+╚══════════════════════════════════════════════════════════╝
+
+─── FAILED CHECKS ────────────────────────────────────────
+  ✘ Required tool missing: jq
+  ✘ Pod my-app-abc-2 — 5xx rate 7.69% exceeds threshold 5%
+  ✘ 3 exception(s) detected
+
+04:58:23 INFO  Reports saved:
+04:58:23 INFO  Reports saved:
+04:58:23 INFO    JSON: health-reports/health-report-final.json
+04:58:23 INFO    JSON: health-reports/health-report-final.json
+04:58:23 INFO    HTML: health-reports/health-report.html
+04:58:23 INFO    HTML: health-reports/health-report.html
+04:58:23 INFO    Logs: health-reports/local-test-20260419_045801.log
+04:58:23 INFO    Logs: health-reports/local-test-20260419_045801.log

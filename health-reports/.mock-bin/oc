@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+# Mock oc for local testing
+case "$*" in
+  *"login"*)
+    echo "Logged into mock cluster as mock-user" ;;
+  *"whoami --show-server"*)
+    echo "https://mock-ocp.example.com:6443" ;;
+  *"whoami"*)
+    echo "mock-user" ;;
+  *"get namespace"*)
+    echo "mock-namespace  Active  5d" ;;
+  *"rollout status"*)
+    echo "deployment \"$APP_NAME\" successfully rolled out" ;;
+  *"rollout history"*)
+    echo "REVISION  CHANGE-CAUSE"; echo "1         <none>"; echo "2         v$APP_VERSION" ;;
+  *"get deployment"*"replicas"*)
+    echo "3" ;;
+  *"get deployment"*"readyReplicas"*)
+    echo "3" ;;
+  *"get deployment"*"availableReplicas"*)
+    echo "3" ;;
+  *"get deployment"*"image"*)
+    echo "registry.example.com/my-app:${APP_VERSION:-1.2.3}" ;;
+  *"get deployment"*"resources"*)
+    echo '{"limits":{"cpu":"500m","memory":"512Mi"},"requests":{"cpu":"250m","memory":"256Mi"}}' ;;
+  *"get pods"*"jsonpath"*"metadata.name"*)
+    echo "my-app-abc-1"; echo "my-app-abc-2"; echo "my-app-abc-3" ;;
+  *"get pods"*"containerStatuses"*)
+    echo "" ;;  # no crashes
+  *"get pods"*"restartCount"*)
+    printf "my-app-abc-1 0\nmy-app-abc-2 0\nmy-app-abc-3 1\n" ;;
+  *"get pod"*"conditions"*)
+    echo "" ;;  # all conditions true
+  *"get pods"*"-o wide"*)
+    printf "NAME          READY  STATUS   RESTARTS  AGE  IP\n"
+    printf "my-app-abc-1  1/1    Running  0         2m   10.0.0.1\n"
+    printf "my-app-abc-2  1/1    Running  0         2m   10.0.0.2\n"
+    printf "my-app-abc-3  1/1    Running  1         2m   10.0.0.3\n" ;;
+  *"adm top pods"*)
+    printf "NAME          CPU(cores)  MEMORY(bytes)\n"
+    printf "my-app-abc-1  150m        210Mi\n"
+    printf "my-app-abc-2  180m        225Mi\n" ;;
+  *"get route"*"spec.host"*)
+    echo "my-app.apps.mock-ocp.example.com" ;;
+  *"get routes"*"spec.host"*)
+    echo "my-app.apps.mock-ocp.example.com" ;;
+  *"get endpoints"*)
+    printf '{"subsets":[{"addresses":[{"ip":"10.0.0.1"},{"ip":"10.0.0.2"},{"ip":"10.0.0.3"}]}]}\n' ;;
+  *"get hpa"*)
+    echo "3/10 (CPU: 42%)" ;;
+  *"get events"*)
+    echo "" ;;  # no events
+  *"exec"*)
+    # Simulate log file existence check
+    if echo "$*" | grep -q "\[ -f"; then
+      echo "no"  # trigger stdout fallback
+    else
+      echo ""
+    fi ;;
+  *"logs"*)
+    # Emit mock access log lines (Combined Log Format)
+    for i in $(seq 1 200); do
+      STATUS=$( (( RANDOM % 20 == 0 )) && echo "500" || echo "200")
+      DUR=$(( RANDOM % 400 + 50 ))
+      echo "10.0.0.1 - - [$(date '+%d/%b/%Y:%H:%M:%S +0000')] \"GET /api/resource/$i HTTP/1.1\" $STATUS 512 \"-\" \"curl/7.68\" $DUR"
+    done
+    for i in $(seq 1 20); do
+      echo "10.0.0.1 - - [$(date '+%d/%b/%Y:%H:%M:%S +0000')] \"POST /api/data HTTP/1.1\" 201 256 \"-\" \"java-client\" $((RANDOM % 100 + 30))"
+    done
+    echo "10.0.0.1 - - [$(date '+%d/%b/%Y:%H:%M:%S +0000')] \"GET /actuator/health HTTP/1.1\" 200 42 \"-\" \"probe\" 5" ;;
+  *)
+    echo "mock-oc: unhandled args: $*" >&2 ;;
+esac

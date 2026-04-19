@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="OCP_Rollout" tests="2" failures="0">
+  <testcase name="$APP_NAME is set"/>
+  <testcase name="$NAMESPACE is set"/>
+  <testcase name="$APP_VERSION is set"/>
+  <testcase name="$OCP_API_URL is set"/>
+  <testcase name="$OCP_TOKEN is set"/>
+  <testcase name="Optional $APPD_CONTROLLER_URL is configured"/>
+  <testcase name="Optional $APPD_API_KEY is configured"/>
+  <testcase name="Optional $ELASTICSEARCH_URL is configured"/>
+  <testcase name="Optional $ELK_AUTH is configured"/>
+  <testcase name="Tool available: oc (health-reports/.mock-bin/oc)"/>
+  <testcase name="Tool available: curl (health-reports/.mock-bin/curl)"/>
+  <testcase name="Tool available: python3 (/usr/bin/python3)"/>
+  <testcase name="Tool available: bc (/usr/bin/bc)"/>
+  <testcase name="Required tool missing: jq"><failure>Required tool missing: jq</failure></testcase>
+  <testcase name="Authenticated as: mock-user @ https://mock-ocp.example.com:6443"/>
+  <testcase name="Namespace 'my-namespace' exists"/>
+  <testcase name="Rollout completed successfully within 60s"/>
+  <testcase name="Correct version deployed: registry.example.com/my-app:1.2.3"/>
+</testsuite>

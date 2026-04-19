@@ -1,0 +1,9 @@
+{
+  "index":            "app-logs-prod-*",
+  "duration_mins":    15,
+  "error_count":      3,
+  "exception_count":  3,
+  "log_spike_ratio":  1.0,
+  "timeout_count":    3,
+  "http5xx_log_count":3
+}

@@ -1,0 +1,23 @@
+{
+  "app":              "my-app",
+  "namespace":        "my-namespace",
+  "version":          "1.2.3",
+  "image":            "registry.example.com/my-app:1.2.3",
+  "route":            "my-app.apps.mock-ocp.example.com",
+  "pods_ready":       "3/3",
+  "timestamp":        "2026-04-19T04:58:21Z",
+  "gitlab_pipeline":  "local",
+  "gitlab_job_url":   "local",
+  "checks_passed":    41,
+  "checks_failed":    3,
+  "checks_warned":    1,
+  "health_score_pct": 93.2,
+  "overall_status":   "FAIL",
+  "appdynamics": {
+    "error_rate_pct": "1.67",
+    "avg_rt_ms":      "340"
+  },
+  "elk": {
+    "error_count":    "3"
+  }
+}

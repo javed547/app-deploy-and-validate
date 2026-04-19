@@ -1,0 +1,9 @@
+{
+  "app":              "mock-app",
+  "duration_mins":    15,
+  "calls_per_min":    120,
+  "error_rate_pct":   1.67,
+  "avg_rt_ms":        340,
+  "p95_rt_ms":        850,
+  "violations":       0
+}
