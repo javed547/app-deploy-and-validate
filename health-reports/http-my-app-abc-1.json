@@ -1,0 +1,91 @@
+{
+  "summary": {
+    "total_requests": 221,
+    "pct_5xx": 3.17,
+    "pct_4xx": 0.0,
+    "pct_slow": 0.0,
+    "slow_threshold_ms": 3000
+  },
+  "by_method": {
+    "GET": 201,
+    "POST": 20
+  },
+  "by_status_class": {
+    "2xx": 214,
+    "5xx": 7
+  },
+  "by_status_code": {
+    "200": 194,
+    "500": 7,
+    "201": 20
+  },
+  "top_paths": [
+    [
+      "/api/data",
+      20
+    ],
+    [
+      "/api/resource/1",
+      1
+    ],
+    [
+      "/api/resource/2",
+      1
+    ],
+    [
+      "/api/resource/3",
+      1
+    ],
+    [
+      "/api/resource/4",
+      1
+    ],
+    [
+      "/api/resource/5",
+      1
+    ],
+    [
+      "/api/resource/6",
+      1
+    ],
+    [
+      "/api/resource/7",
+      1
+    ],
+    [
+      "/api/resource/8",
+      1
+    ],
+    [
+      "/api/resource/9",
+      1
+    ]
+  ],
+  "top_5xx_paths": [
+    [
+      "/api/resource/4",
+      1
+    ],
+    [
+      "/api/resource/27",
+      1
+    ],
+    [
+      "/api/resource/30",
+      1
+    ],
+    [
+      "/api/resource/45",
+      1
+    ],
+    [
+      "/api/resource/99",
+      1
+    ]
+  ],
+  "top_slow_paths": [],
+  "verdict": {
+    "5xx_ok": true,
+    "slow_ok": true
+  }
+}

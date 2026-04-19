@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="AppDynamics" tests="5" failures="0">
+  <testcase name="Pod my-app-abc-1 — all conditions satisfied"/>
+  <testcase name="Pod my-app-abc-2 — all conditions satisfied"/>
+  <testcase name="Pod my-app-abc-3 — all conditions satisfied"/>
+  <testcase name="No warning events for my-app"/>
+  <testcase name="Resource metrics: CPU=330m  MEM=435Mi"/>
+  <testcase name="Resource limits are configured on deployment"/>
+  <testcase name="Health endpoint /health returned HTTP 200"/>
+  <testcase name="Service has 1 endpoint(s) registered: {&quot;subsets&quot;:[{&quot;addresses&quot;:[{&quot;ip&quot;:&quot;10.0.0.1&quot;},{&quot;ip&quot;:&quot;10.0.0.2&quot;},{&quot;ip&quot;:&quot;10.0.0.3&quot;}]}]}"/>
+  <testcase name="HPA status: 3/10 (CPU: 42%)"/>
+  <testcase name="Pod my-app-abc-1 — 5xx rate 3.17% within threshold 5%"/>
+  <testcase name="Pod my-app-abc-1 — slow request rate 0.0% is acceptable"/>
+  <testcase name="Pod my-app-abc-2 — 5xx rate 7.69% exceeds threshold 5%"><failure>Pod my-app-abc-2 — 5xx rate 7.69% exceeds threshold 5%</failure></testcase>
+  <testcase name="Pod my-app-abc-2 — slow request rate 0.0% is acceptable"/>
+  <testcase name="Pod my-app-abc-3 — 5xx rate 4.52% within threshold 5%"/>
+  <testcase name="Pod my-app-abc-3 — slow request rate 0.0% is acceptable"/>
+  <testcase name="Application receiving traffic: 120 calls/min"/>
+  <testcase name="Error rate: 1.67% (threshold: 5%)"/>
+  <testcase name="Avg response time: 340ms (threshold: 2000ms)"/>
+  <testcase name="P95 response time: 850ms (threshold: 6000ms)"/>
+  <testcase name="No AppDynamics health rule violations"/>
+</testsuite>

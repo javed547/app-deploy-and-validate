@@ -1,0 +1,4 @@
+NAME          READY  STATUS   RESTARTS  AGE  IP
+my-app-abc-1  1/1    Running  0         2m   10.0.0.1
+my-app-abc-2  1/1    Running  0         2m   10.0.0.2
+my-app-abc-3  1/1    Running  1         2m   10.0.0.3

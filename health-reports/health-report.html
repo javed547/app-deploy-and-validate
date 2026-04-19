@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Health Report — my-app v1.2.3</title>
+  <style>
+    body  { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #0d1117; color: #c9d1d9; margin: 0; padding: 20px; }
+    .card { background: #161b22; border: 1px solid #30363d;
+            border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+    h1    { color: #58a6ff; margin: 0 0 4px; }
+    .badge{ display: inline-block; padding: 6px 18px; border-radius: 20px;
+            font-weight: bold; font-size: 1.1em;
+            background: #dc3545; color: #fff; }
+    table { width: 100%; border-collapse: collapse; }
+    th    { background: #21262d; color: #8b949e; text-align: left;
+            padding: 8px 12px; font-size: 0.8em; text-transform: uppercase; }
+    td    { padding: 8px 12px; border-bottom: 1px solid #21262d; }
+    .pass { color: #3fb950; } .fail { color: #f85149; } .warn { color: #d29922; }
+    .score{ font-size: 3em; font-weight: bold; color: #dc3545; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .kv   { display: flex; justify-content: space-between; padding: 4px 0;
+            border-bottom: 1px solid #21262d; }
+    .kv span:first-child { color: #8b949e; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Post-Deployment Health Report</h1>
+    <p>my-app &nbsp;|&nbsp; v1.2.3 &nbsp;|&nbsp; my-namespace &nbsp;|&nbsp; 2026-04-19T04:58:21Z</p>
+    <span class="badge">FAIL</span>
+    &nbsp;&nbsp;<span class="score">93.2%</span>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <h3>Deployment Details</h3>
+      <div class="kv"><span>Image</span>        <span>registry.example.com/my-app:1.2.3</span></div>
+      <div class="kv"><span>Route</span>        <span>my-app.apps.mock-ocp.example.com</span></div>
+      <div class="kv"><span>Pods</span>         <span>3/3</span></div>
+      <div class="kv"><span>Pipeline</span>     <span>local</span></div>
+    </div>
+    <div class="card">
+      <h3>Observability Metrics</h3>
+      <div class="kv"><span>AppD Error Rate</span>  <span>1.67%</span></div>
+      <div class="kv"><span>AppD Avg RT</span>      <span>340ms</span></div>
+      <div class="kv"><span>ELK Error Count</span>  <span>3</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Check Results</h3>
+    <table>
+      <tr><th>Status</th><th>Check</th></tr>
+      <tr><td class="pass">✔ PASS</td><td>$APP_NAME is set</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>$NAMESPACE is set</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>$APP_VERSION is set</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>$OCP_API_URL is set</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>$OCP_TOKEN is set</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Optional $APPD_CONTROLLER_URL is configured</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Optional $APPD_API_KEY is configured</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Optional $ELASTICSEARCH_URL is configured</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Optional $ELK_AUTH is configured</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Tool available: oc (health-reports/.mock-bin/oc)</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Tool available: curl (health-reports/.mock-bin/curl)</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Tool available: python3 (/usr/bin/python3)</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Tool available: bc (/usr/bin/bc)</td></tr>
+      <tr><td class="fail">✘ FAIL</td><td>Required tool missing: jq</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Authenticated as: mock-user @ https://mock-ocp.example.com:6443</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Namespace 'my-namespace' exists</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Rollout completed successfully within 60s</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Correct version deployed: registry.example.com/my-app:1.2.3</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Pod readiness: 3/3 (100%) — meets 100% threshold</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Restart counts within acceptable range</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Pod my-app-abc-1 — all conditions satisfied</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Pod my-app-abc-2 — all conditions satisfied</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Pod my-app-abc-3 — all conditions satisfied</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>No warning events for my-app</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Resource metrics: CPU=330m  MEM=435Mi</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Resource limits are configured on deployment</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Health endpoint /health returned HTTP 200</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Service has 1 endpoint(s) registered: {"subsets":[{"addresses":[{"ip":"10.0.0.1"},{"ip":"10.0.0.2"},{"ip":"10.0.0.3"}]}]}</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>HPA status: 3/10 (CPU: 42%)</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Pod my-app-abc-1 — 5xx rate 3.17% within threshold 5%</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Pod my-app-abc-1 — slow request rate 0.0% is acceptable</td></tr>
+      <tr><td class="fail">✘ FAIL</td><td>Pod my-app-abc-2 — 5xx rate 7.69% exceeds threshold 5%</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Pod my-app-abc-2 — slow request rate 0.0% is acceptable</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Pod my-app-abc-3 — 5xx rate 4.52% within threshold 5%</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Pod my-app-abc-3 — slow request rate 0.0% is acceptable</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Application receiving traffic: 120 calls/min</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Error rate: 1.67% (threshold: 5%)</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Avg response time: 340ms (threshold: 2000ms)</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>P95 response time: 850ms (threshold: 6000ms)</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>No AppDynamics health rule violations</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Error log count: 3 (threshold: 10)</td></tr>
+      <tr><td class="fail">✘ FAIL</td><td>3 exception(s) detected</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>Log volume normal — current/baseline ratio: 1.0x (baseline: 3, current: 3)</td></tr>
+      <tr><td class="warn">⚠ WARN</td><td>Minor timeout occurrences: 3 (investigate if rising)</td></tr>
+      <tr><td class="pass">✔ PASS</td><td>HTTP 5xx log entries: 3 — acceptable</td></tr>
+    </table>
+  </div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+ARGS="$*"
+if echo "$ARGS" | grep -q "appdynamics\|controller/rest"; then
+  if echo "$ARGS" | grep -q "Calls per Minute"; then
+    echo '[{"metricName":"Calls per Minute","metricValues":[{"value":120}]}]'
+  elif echo "$ARGS" | grep -q "Errors per Minute"; then
+    echo '[{"metricName":"Errors per Minute","metricValues":[{"value":2}]}]'
+  elif echo "$ARGS" | grep -q "Average Response Time"; then
+    echo '[{"metricName":"Average Response Time (ms)","metricValues":[{"value":340}]}]'
+  elif echo "$ARGS" | grep -q "95th Percentile"; then
+    echo '[{"metricName":"95th Percentile","metricValues":[{"value":850}]}]'
+  elif echo "$ARGS" | grep -q "healthrule-violations"; then
+    echo '[]'
+  elif echo "$ARGS" | grep -q "business-transactions"; then
+    echo '[{"name":"/api/resource","callsPerMinute":80},{"name":"/api/data","callsPerMinute":40}]'
+  else
+    echo '[]'
+  fi
+elif echo "$ARGS" | grep -q "elasticsearch\|9200"; then
+  echo '{"hits":{"total":{"value":3},"hits":[{"_source":{"message":"mock error","log.level":"ERROR","@timestamp":"2024-01-01T00:00:00Z","kubernetes.pod.name":"mock-pod"}}]}}'
+elif echo "$ARGS" | grep -q "health\|/ping\|/status"; then
+  echo -n "200"
+else
+  echo -n "200"
+fi

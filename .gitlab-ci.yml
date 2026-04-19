@@ -1,0 +1,149 @@
+# ============================================================
+# .gitlab-ci.yml
+# Post-Deployment Health Validation Pipeline
+# Trigger: Manual (on-demand) or after deploy stage
+# ============================================================
+
+stages:
+  - validate-env
+  - ocp-platform-checks
+  - http-categorization
+  - appdynamics-checks
+  - elk-checks
+  - report
+
+# ── Global defaults ─────────────────────────────────────────
+default:
+  image: registry.access.redhat.com/ubi8/ubi-minimal:latest
+  before_script:
+    - microdnf install -y curl python3 bc jq tar gzip --nodocs --setopt=install_weak_deps=0
+    - chmod +x scripts/*.sh
+    - source scripts/lib/logger.sh
+    - source scripts/lib/thresholds.sh
+
+# ── Pipeline-level variables (override in GitLab CI/CD Settings) ──
+variables:
+  APP_NAME:                  ""          # REQUIRED — set in pipeline trigger
+  NAMESPACE:                 ""          # REQUIRED — OpenShift namespace
+  APP_VERSION:               ""          # REQUIRED — image tag/version deployed
+  STABILIZE_WAIT:            "60"        # seconds to wait after deploy
+  ROLLOUT_TIMEOUT:           "300"
+  # AppDynamics — store as CI/CD masked variables
+  APPD_CONTROLLER_URL:       ""
+  APPD_API_KEY:              ""
+  APPD_APP_NAME:             ""
+  # ELK — store as CI/CD masked variables
+  ELASTICSEARCH_URL:         ""
+  ELK_AUTH:                  ""          # base64(user:pass)
+  ELK_INDEX:                 "app-logs-prod-*"
+  # Thresholds
+  ERROR_RATE_THRESHOLD:      "5"
+  RESPONSE_TIME_THRESHOLD:   "2000"
+  LOG_ERROR_THRESHOLD:       "10"
+  HTTP_5XX_THRESHOLD:        "5"         # max % 5xx responses
+  HTTP_SLOW_THRESHOLD:       "3000"      # ms — slow request cutoff
+  # OCP auth — store as CI/CD masked variables
+  OCP_API_URL:               ""
+  OCP_TOKEN:                 ""
+  # Artifacts
+  REPORT_DIR:                "health-reports"
+
+# ── Artifact retention ───────────────────────────────────────
+.report-artifacts: &report-artifacts
+  artifacts:
+    when: always
+    expire_in: 30 days
+    paths:
+      - health-reports/
+    reports:
+      junit: health-reports/junit-*.xml
+
+# ── Only run manually or when triggered via API ──────────────
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+
+# ============================================================
+# STAGE 1 — VALIDATE ENVIRONMENT
+# ============================================================
+validate-environment:
+  stage: validate-env
+  script:
+    - scripts/01-validate-env.sh
+  rules:
+    - when: always
+  <<: *report-artifacts
+
+# ============================================================
+# STAGE 2 — OPENSHIFT PLATFORM CHECKS
+# ============================================================
+ocp-rollout-status:
+  stage: ocp-platform-checks
+  script:
+    - scripts/02-ocp-rollout.sh
+  <<: *report-artifacts
+
+ocp-pod-health:
+  stage: ocp-platform-checks
+  script:
+    - scripts/03-ocp-pods.sh
+  <<: *report-artifacts
+
+ocp-resources-and-route:
+  stage: ocp-platform-checks
+  script:
+    - scripts/04-ocp-resources.sh
+  <<: *report-artifacts
+
+# ============================================================
+# STAGE 3 — HTTP REQUEST CATEGORIZATION (container exec)
+# ============================================================
+http-request-categorization:
+  stage: http-categorization
+  script:
+    - scripts/05-http-categorization.sh
+  <<: *report-artifacts
+
+# ============================================================
+# STAGE 4 — APPDYNAMICS CHECKS
+# ============================================================
+appdynamics-health:
+  stage: appdynamics-checks
+  script:
+    - scripts/06-appdynamics.sh
+  rules:
+    - if: '$APPD_CONTROLLER_URL != ""'
+      when: always
+    - when: never
+  <<: *report-artifacts
+
+# ============================================================
+# STAGE 5 — ELK CHECKS
+# ============================================================
+elk-log-analysis:
+  stage: elk-checks
+  script:
+    - scripts/07-elk-analysis.sh
+  rules:
+    - if: '$ELASTICSEARCH_URL != ""'
+      when: always
+    - when: never
+  <<: *report-artifacts
+
+# ============================================================
+# STAGE 6 — FINAL REPORT + PASS/FAIL GATE
+# ============================================================
+health-gate:
+  stage: report
+  script:
+    - scripts/08-final-report.sh
+  <<: *report-artifacts
+  after_script:
+    - |
+      STATUS=$(cat health-reports/overall-status.txt 2>/dev/null || echo "UNKNOWN")
+      echo "──────────────────────────────────────"
+      echo " Final Health Status: $STATUS"
+      echo "──────────────────────────────────────"
+      if [[ "$STATUS" != "PASS" ]]; then exit 1; fi

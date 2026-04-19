@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="OCP_Resources" tests="5" failures="0">
+  <testcase name="Tool available: oc (health-reports/.mock-bin/oc)"/>
+  <testcase name="Tool available: curl (health-reports/.mock-bin/curl)"/>
+  <testcase name="Tool available: python3 (/usr/bin/python3)"/>
+  <testcase name="Tool available: bc (/usr/bin/bc)"/>
+  <testcase name="Required tool missing: jq"><failure>Required tool missing: jq</failure></testcase>
+  <testcase name="Authenticated as: mock-user @ https://mock-ocp.example.com:6443"/>
+  <testcase name="Namespace 'my-namespace' exists"/>
+  <testcase name="Rollout completed successfully within 60s"/>
+  <testcase name="Correct version deployed: registry.example.com/my-app:1.2.3"/>
+  <testcase name="Pod readiness: 3/3 (100%) — meets 100% threshold"/>
+  <testcase name="Restart counts within acceptable range"/>
+  <testcase name="Pod my-app-abc-1 — all conditions satisfied"/>
+  <testcase name="Pod my-app-abc-2 — all conditions satisfied"/>
+  <testcase name="Pod my-app-abc-3 — all conditions satisfied"/>
+  <testcase name="No warning events for my-app"/>
+  <testcase name="Resource metrics: CPU=330m  MEM=435Mi"/>
+  <testcase name="Resource limits are configured on deployment"/>
+  <testcase name="Health endpoint /health returned HTTP 200"/>
+  <testcase name="Service has 1 endpoint(s) registered: {&quot;subsets&quot;:[{&quot;addresses&quot;:[{&quot;ip&quot;:&quot;10.0.0.1&quot;},{&quot;ip&quot;:&quot;10.0.0.2&quot;},{&quot;ip&quot;:&quot;10.0.0.3&quot;}]}]}"/>
+  <testcase name="HPA status: 3/10 (CPU: 42%)"/>
+</testsuite>

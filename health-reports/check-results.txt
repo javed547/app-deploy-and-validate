@@ -1,0 +1,45 @@
+PASS|$APP_NAME is set
+PASS|$NAMESPACE is set
+PASS|$APP_VERSION is set
+PASS|$OCP_API_URL is set
+PASS|$OCP_TOKEN is set
+PASS|Optional $APPD_CONTROLLER_URL is configured
+PASS|Optional $APPD_API_KEY is configured
+PASS|Optional $ELASTICSEARCH_URL is configured
+PASS|Optional $ELK_AUTH is configured
+PASS|Tool available: oc (health-reports/.mock-bin/oc)
+PASS|Tool available: curl (health-reports/.mock-bin/curl)
+PASS|Tool available: python3 (/usr/bin/python3)
+PASS|Tool available: bc (/usr/bin/bc)
+FAIL|Required tool missing: jq
+PASS|Authenticated as: mock-user @ https://mock-ocp.example.com:6443
+PASS|Namespace 'my-namespace' exists
+PASS|Rollout completed successfully within 60s
+PASS|Correct version deployed: registry.example.com/my-app:1.2.3
+PASS|Pod readiness: 3/3 (100%) — meets 100% threshold
+PASS|Restart counts within acceptable range
+PASS|Pod my-app-abc-1 — all conditions satisfied
+PASS|Pod my-app-abc-2 — all conditions satisfied
+PASS|Pod my-app-abc-3 — all conditions satisfied
+PASS|No warning events for my-app
+PASS|Resource metrics: CPU=330m  MEM=435Mi
+PASS|Resource limits are configured on deployment
+PASS|Health endpoint /health returned HTTP 200
+PASS|Service has 1 endpoint(s) registered: {"subsets":[{"addresses":[{"ip":"10.0.0.1"},{"ip":"10.0.0.2"},{"ip":"10.0.0.3"}]}]}
+PASS|HPA status: 3/10 (CPU: 42%)
+PASS|Pod my-app-abc-1 — 5xx rate 3.17% within threshold 5%
+PASS|Pod my-app-abc-1 — slow request rate 0.0% is acceptable
+FAIL|Pod my-app-abc-2 — 5xx rate 7.69% exceeds threshold 5%
+PASS|Pod my-app-abc-2 — slow request rate 0.0% is acceptable
+PASS|Pod my-app-abc-3 — 5xx rate 4.52% within threshold 5%
+PASS|Pod my-app-abc-3 — slow request rate 0.0% is acceptable
+PASS|Application receiving traffic: 120 calls/min
+PASS|Error rate: 1.67% (threshold: 5%)
+PASS|Avg response time: 340ms (threshold: 2000ms)
+PASS|P95 response time: 850ms (threshold: 6000ms)
+PASS|No AppDynamics health rule violations
+PASS|Error log count: 3 (threshold: 10)
+FAIL|3 exception(s) detected
+PASS|Log volume normal — current/baseline ratio: 1.0x (baseline: 3, current: 3)
+WARN|Minor timeout occurrences: 3 (investigate if rising)
+PASS|HTTP 5xx log entries: 3 — acceptable
